@@ -4,7 +4,7 @@ function ContactsList(props) {
   return (
     <aside className="contacts-section light-shadow">
       <header>
-        <h2>Contacts ALO</h2>
+        <h2>Contacts</h2>
         <button
           onClick={() => setHideForm(!hideForm)}
           className="button new-contact-btn"
