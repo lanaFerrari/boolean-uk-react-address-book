@@ -1,7 +1,8 @@
 import { useState } from "react"
 
-function CreateContactForm() {
-  // [TODO] Write form handlers here and POST requests here...
+function CreateContactForm(props) {
+
+const {contacts, setContacts} = props;
 
 const [name, setName] = useState("")
 const [lastName, setLastName] = useState("")
@@ -9,6 +10,13 @@ const [street, setStreet ] = useState("")
 const [city, setCity] = useState("")
 const [postCode , setPostCode] = useState("")
 const [check, setCheck] = useState(false)
+
+const handleUserNameInput = (e) => {setName(e.target.value)}
+const handleUserLastNameInput = (e) => {setLastName(e.target.value)}
+const handleStreetInput = (e) => {setStreet(e.target.value)}
+const handleCityInput = (e) => {setCity(e.target.value)}
+const handlePostCodeInput = (e) => {setPostCode(e.target.value)}
+const handleCheckbox = (e) => {setCheck(e.target.checked)}
 
 const handleSubmit =(e) =>{
     e.preventDefault();
@@ -33,6 +41,7 @@ const handleSubmit =(e) =>{
       .then((newAddress) => {
         console.log("Inside POST response", newAddress);
 
+
     const contactToCreate = { 
     firstName: name,
     lastName: lastName ,
@@ -52,32 +61,12 @@ const handleSubmit =(e) =>{
       .then((res) => res.json())
       .then((newUser) => {
         console.log("Inside POST response", newUser);
+       
         // setContacts([...contacts, newUser]);
+
           });
-    })
-};
-
-const handleUserNameInput = (e) => {
-  setName(e.target.value)
-}
-
-const handleUserLastNameInput = (e) => {
-  setLastName(e.target.value)
-}
-const handleStreetInput = (e) => {
-  setStreet(e.target.value)
-}
-const handleCityInput = (e) => {
-  setCity(e.target.value)
-}
-
-const handlePostCodeInput = (e) => {
-  setPostCode(e.target.value)
-}
-
-const handleCheckbox = (e) => {
-  setCheck(e.target.checked)
-}
+      })
+  };
 
   return (
     <form className="form-stack light-shadow center contact-form" onSubmit={handleSubmit}>
