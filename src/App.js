@@ -7,8 +7,8 @@ import "./styles.css";
 export default function App() {
   const [contacts, setContacts] = useState([]);
   const [hideForm, setHideForm] = useState(true);
-  const [hideCreateForm, setHideCreateForm] = useState(true);
-  const [hideEditForm, setHideEditForm] = useState(true);
+  const [userToEdit, setUserToEdit] = useState(null);
+  console.log("userToEdit" , userToEdit)
 
   useEffect(() => {
       const url = `http://localhost:3030/contacts`;
@@ -17,7 +17,7 @@ export default function App() {
         .then((ContactsData) => {
         setContacts(ContactsData);
         });
-    }, [contacts]);
+    }, []);
 
 
   return (
@@ -26,15 +26,10 @@ export default function App() {
         contacts={contacts}
         hideForm={hideForm}
         setHideForm={setHideForm}
-        hideCreateForm={hideCreateForm}
-        setHideCreateForm={setHideCreateForm}
-        hideEditForm={hideEditForm}
-        setHideEditForm={setHideEditForm}
-
+        setUserToEdit={setUserToEdit}
       />
       <main>{!hideForm && <CreateContactForm contacts ={contacts} setContacts={setContacts} />}
-      {!hideCreateForm && <EditContactForm contacts ={contacts} setContacts={setContacts}/> }
-      {/* {<EditContactForm/> } */}
+      {<EditContactForm userToEdit={userToEdit} /> }
       </main>
     </>
   );

@@ -61,12 +61,17 @@ const handleSubmit =(e) =>{
       .then((res) => res.json())
       .then((newUser) => {
         console.log("Inside POST response", newUser);
-       
-        // setContacts([...contacts, newUser]);
+        
+        const contactToAdd = { 
+          ...newUser, 
+          address: newAddress,
+        }
+        
+        setContacts([...contacts, contactToAdd]) 
 
           });
-      })
-  };
+    })
+};
 
   return (
     <form className="form-stack light-shadow center contact-form" onSubmit={handleSubmit}>

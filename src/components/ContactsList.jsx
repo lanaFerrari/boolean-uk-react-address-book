@@ -1,13 +1,5 @@
 function ContactsList(props) {
-  const { contacts, 
-    hideForm, 
-    setHideForm , 
-    hideCreateForm , 
-    setHideCreateForm , 
-    hideEditForm,
-    setHideEditForm
-  } = props;
-
+  const { contacts, hideForm, setHideForm, setUserToEdit } = props;
 
   return (
     <aside className="contacts-section light-shadow">
@@ -29,22 +21,20 @@ function ContactsList(props) {
               <h3>
                 {firstName} {lastName}
               </h3>
-              <button className="button" 
-              onClick={() => setHideCreateForm(!hideCreateForm)}
-          className="button new-contact-btn">
-          {hideCreateForm ? "View" : "Cancel"}</button>
+              <button className="button" className="button new-contact-btn" onClick={() => {
+                setUserToEdit(contact)
+              }}>
+                {" "}
+                View
+              </button>
 
-
-              <button className="button"
-              onClick={() => setHideForm(!hideForm)}
-          className="button new-contact-btn">
-          {/* {hideForm ? "Create" : "Cancel"} */}
-            Edit </button>
+              <button className="button" className="button new-contact-btn">
+                Edit{" "}
+              </button>
 
               {/* <p> */}
-                {/* {address.street}, {address.postCode} */}
+              {/* {address.street}, {address.postCode} */}
               {/* </p> */}
-
             </li>
           );
         })}
