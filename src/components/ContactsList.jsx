@@ -21,20 +21,25 @@ function ContactsList(props) {
               <h3>
                 {firstName} {lastName}
               </h3>
-              <button className="button" className="button new-contact-btn" onClick={() => {
-                setUserToEdit(contact)
-              }}>
+              <button
+                className="button"
+                className="button new-contact-btn"
+                onClick={() => {
+                  setUserToEdit(contact);
+                }}
+              >
                 {" "}
-                View
+                Edit
               </button>
 
               <button className="button" className="button new-contact-btn">
-                Edit{" "}
+                View
+                {" "}
               </button>
 
-              {/* <p> */}
-              {/* {address.street}, {address.postCode} */}
-              {/* </p> */}
+              {/* <p> 
+               {address.street}, {address.postCode} 
+              </p> */}
             </li>
           );
         })}

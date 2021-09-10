@@ -15,13 +15,6 @@
       "addressId": 2
     },
     {
-      "firstName": "Test",
-      "lastName": "LOL",
-      "blockContact": true,
-      "addressId": 3,
-      "id": 3
-    },
-    {
       "firstName": "Alana",
       "lastName": "Rangel",
       "blockContact": false,
@@ -41,12 +34,6 @@
       "street": "Buckingham Palace",
       "city": "London",
       "postCode": "SW1A 1AA"
-    },
-    {
-      "street": "",
-      "city": "",
-      "postCode": "",
-      "id": 3
     },
     {
       "street": "Ivydene Old Perry Street",

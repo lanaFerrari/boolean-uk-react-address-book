@@ -4,147 +4,160 @@ function EditContactForm(props) {
 
 const { contacts, setContacts, userToEdit } = props;
 
-const [name, setName] = useState("")
-const [lastName, setLastName] = useState("")
-const [street, setStreet ] = useState("")
-const [city, setCity] = useState("")
-const [postCode , setPostCode] = useState("")
-const [check, setCheck] = useState(false)
-
-const [userName, setUserName] = useState("")
-const [userLastName, setUserLastName] = useState("")
-const [userStreet, setUserStreet] = useState("")
-const [userCity, setUserCity] = useState("")
-const [userPostCode, setUserPostcode] = useState("")
-const [terms, setTerms] = useState(false)
+const [userInput, setUserInput] = useState({
+  firstName: "",
+  lastName:"",
+  street: "",
+  city:"",
+  postCode: "",
+  blockContact: false,
+})
 
 useEffect(() => {
   if (userToEdit) {
-    setUserName(userToEdit.firstName);
-    setUserLastName(userToEdit.lastName);
-    setUserStreet(userToEdit.address.street);
-    setUserCity(userToEdit.address.city);
-    setUserPostcode(userToEdit.address.postCode);
-    setTerms(userToEdit.terms);
+    setUserInput({
+      firstName: userToEdit.firstName,
+      lastName: userToEdit.lastName,
+      blockContact: userToEdit.blockContact,
+      street: userToEdit.street,
+      city: userToEdit.city,
+      postCode: userToEdit.postCode
+    });
   }
 }, [userToEdit]);
 
+// const { firstName, lastName, address, blockContact } = userInput;
+// const { street, city, postCode} = address;
 
-const handleUserNameInput = (e) => {setName(e.target.value)}
-const handleUserLastNameInput = (e) => {setLastName(e.target.value)}
-const handleStreetInput = (e) => {setStreet(e.target.value)}
-const handleCityInput = (e) => {setCity(e.target.value)}
-const handlePostCodeInput = (e) => {setPostCode(e.target.value)}
-const handleCheckbox = (e) => {setCheck(e.target.checked)}
+// console.log(address)
 
-// const handleSubmit =(e) =>{
-//     e.preventDefault();
+const handleUserInput = (e) => {
+  const inputName = e.target.name;
+  const inputValue = e.target.value;
+  const inputType = e.target.type;
+  const inputCheck = e.target.checked;
 
-//     const contactAdress={
-//       street: street,
-//       city: city,
-//       postCode: postCode
-//     }
+  if(inputType === "checkbox"){
+    setUserInput({
+      ...userInput,
+      [inputName]: inputCheck,
+    });
+  }else{
+    setUserInput({
+      ...userInput,
+      [inputName]:inputValue,
+    })
+  }
+};
 
-//          const fetchOptionsAddress = {
-//       method: "PUT",
-//       headers: {
-//         "Content-Type": "application/json"
-//       },
-//       body: JSON.stringify(contactAdress)
-//     };
+const handleSubmit =(e) =>{
+    e.preventDefault();
+
+    const contactAdress={
+      street: street,
+      city: city,
+      postCode: postCode
+    }
+
+         const fetchOptionsAddress = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(contactAdress)
+    };
 
 
-//         fetch("http://localhost:3030/addresses", fetchOptionsAddress)
-//       .then((res) => res.json())
-//       .then((newAddress) => {
-//         console.log("Inside POST response", newAddress);
+        fetch(`http://localhost:3030/addresses/${address.id}`, fetchOptionsAddress)
+      .then((res) => res.json())
+      .then((newAddress) => {
+        console.log("Inside POST response", newAddress);
 
 
-//     const contactToCreate = { 
-//     firstName: name,
-//     lastName: lastName ,
-//     blockContact: check,
-//     addressId: newAddress.id
-//     }
+    const contactToCreate = {
+      firstName: firstName,
+      lastName: lastName,
+      blockContact: blockContact,
+      addressId: newAddress.id,
+    };
 
-//       const fetchOptions = {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json"
-//       },
-//       body: JSON.stringify(contactToCreate)
-//     };
+      const fetchOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(contactToCreate)
+    };
 
-//     fetch("http://localhost:3030/contacts", fetchOptions)
-//       .then((res) => res.json())
-//       .then((newUser) => {
-//         console.log("Inside POST response", newUser);
+    fetch(`ttp://localhost:3030/contacts/${contacts.id}`, fetchOptions)
+      .then((res) => res.json())
+      .then((newUser) => {
+        console.log("Inside POST response", newUser);
        
-//         // setContacts([...contacts, newUser]);
+        // setContacts([...contacts, newUser]);
 
-//           });
-//       })
-//   };
+          });
+      })
+  };
 
   return (
     <form
-      class="form-stack light-shadow center contact-form"
-      //   onSubmit={handleSubmit}
+      className="form-stack light-shadow center contact-form"
+      onSubmit={handleSubmit}
     >
       <h1>Edit Contact</h1>
       <label for="first-name-input">First Name:</label>
       <input
         id="first-name-input"
-        name="first-name-input"
+        name="firstName"
         type="text"
-        value={userName}
-        onChange={handleUserNameInput}
+        value={firstName}
+        onChange={handleUserInput}
       />
-      <label for="last-name-input">Last Name:</label>
+      <label htmlFor="last-name-input">Last Name:</label>
       <input
         id="last-name-input"
-        name="last-name-input"
+        name="lastName"
         type="text"
-        value={userLastName}
-        onChange={handleUserNameInput}
+        value={lastName}
+        onChange={handleUserInput}
       />
-      <label for="street-input">Street:</label>
+      <label htmlFor="street-input">Street:</label>
       <input
         id="street-input"
-        name="street-input"
+        name="street"
         type="text"
-        value={userStreet}
-        onChange={handleUserNameInput}
+        value={street}
+        onChange={handleUserInput}
       />
-      <label for="city-input">City:</label>
+      <label htmlFor="city-input">City:</label>
       <input
         id="city-input"
-        name="city-input"
+        name="city"
         type="text"
-        value={userCity}
-        onChange={handleUserNameInput}
+        value={city}
+        onChange={handleUserInput}
       />
-      <label for="post-code-input">Post Code:</label>
+      <label htmlFor="post-code-input">Post Code:</label>
       <input
         id="post-code-input"
-        name="post-code-input"
+        name="postCode"
         type="text"
-        value={userPostCode}
-        onChange={handleUserNameInput}
+        value={postCode}
+        onChange={handleUserInput}
       />
-      <div class="checkbox-section">
+      <div className="checkbox-section">
         <input
           id="block-checkbox"
-          name="block-checkbox"
+          name="blockContact"
           type="checkbox"
-          value={terms}
-          onChange={handleUserNameInput}
+          value={blockContact}
+          onChange={handleUserInput}
         />
-        <label for="block-checkbox">Block</label>
+        <label htmlFor="block-checkbox">Block</label>
       </div>
-      <div class="actions-section">
-        <button class="button blue" type="submit">
+      <div className="actions-section">
+        <button className="button blue" type="submit">
           Save
         </button>
       </div>
